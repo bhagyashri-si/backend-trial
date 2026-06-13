@@ -1,35 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home Page</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="/style.css">
-</head>
-<body>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
     <header class="header">
-        <a href="/" class="logo">Home Page</a>
-        <nav class="navbar">
-            <a href="/login">Log In</a>
-        </nav>
-        <div id="menu-icon"><i class="fas fa-bars"></i></div>
+      <h2><a href="/">Home Page</a></h2>
+      <nav>
+        <a href="/login">Log In</a>
+      </nav>
     </header>
 
-    <main class="contact">
-        <h2 class="heading">Create an <span>Account</span></h2>
-        
+    <main>
+      <fieldset>
+        <legend>
+          <h3 class="heading">Create an <span>Account</span></h3>
+        </legend>
+
         <form action="/register" method="POST">
-            <div class="input-box">
-                <input type="text" id="username" name="username" placeholder="Username" autocomplete="off" required>
-                <input type="password" id="password" name="password" placeholder="Password" autocomplete="off" required>
-            </div>
-            <button type="submit" class="btn">Sign Up</button>
+            <% errors.forEach(error => { %>
+                <p class="notice"><%= error %></p>
+           <% }) %>
+          <div class="input-box">
+            <input
+              type="text"
+              id="username"
+              name="username"
+              placeholder="Username"
+              autocomplete="off"
+              required
+            />
+            <br/>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Password"
+              autocomplete="off"
+              required
+            />
+          </div>
+          <br/>
+          <button type="submit" class="btn">Sign Up</button>
         </form>
+      </fieldset>
     </main>
 
     <footer class="footer">
-        <p class="copyright">&copy; 2026 Our Wonderful App. All rights reserved.</p>
+      <p class="copyright">
+        &copy; Made by Bhagyashri Si. All rights reserved.
+      </p>
     </footer>
-</body>
+  </body>
 </html>
