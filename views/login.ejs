@@ -1,32 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Page</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="/style.css">
-</head>
-<body>
-    <header class="header">
-        <a href="/" class="logo">Home Page</a>
-        <nav class="navbar">
-            <a href="/login">Log In</a>
-        </nav>
-    </header>
 
-    <main class="home">
-        <div class="home-content">
-            <h3>Welcome Back</h3>
-            <h1>Login Page</h1>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum repellat pariatur iure placeat nesciunt? Ipsum, quod odio? Earum corrupti repellat, officiis est autem maiores dolor quis quam porro et impedit?</p>
-            <br>
-            <a href="/" class="btn">Back to Register</a>
-        </div>
+<%- include('includes/head') %>
+
+<body>
+
+    <%- include('includes/header') %>
+
+    <main>
+      <fieldset>
+        <legend>
+          <h3 class="heading">Log In</h3>
+        </legend>
+
+        <form action="/login" method="POST">
+            <% errors.forEach(error => { %>
+                <p class="notice"><%= error %></p>
+           <% }) %>
+          <div class="input-box">
+            <input
+              type="text"
+              id="username"
+              name="username"
+              placeholder="Username"
+              autocomplete="off"
+              required
+            />
+            <br/>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Password"
+              autocomplete="off"
+              required
+            />
+          </div>
+          <br/>
+          <button type="submit" class="btn">Log In</button>
+        </form>
+      </fieldset>
     </main>
 
-    <footer class="footer">
-        <p class="copyright">&copy; Made by Bhagyashri Si. All rights reserved.</p>
-    </footer>
+    <%- include('includes/footer') %>
+
 </body>
 </html>

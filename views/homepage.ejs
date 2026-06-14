@@ -1,22 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Home Page</title>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-    />
-    <link rel="stylesheet" href="/style.css" />
-  </head>
+  
+ <%- include('includes/head') %>
+
   <body>
-    <header class="header">
-      <h2><a href="/">Home Page</a></h2>
-      <nav>
-        <a href="/login">Log In</a>
-      </nav>
-    </header>
+    
+    <%- include('includes/header') %>
 
     <main>
       <fieldset>
@@ -53,10 +42,6 @@
       </fieldset>
     </main>
 
-    <footer class="footer">
-      <p class="copyright">
-        &copy; Made by Bhagyashri Si. All rights reserved.
-      </p>
-    </footer>
+   <%- include('includes/footer') %>
   </body>
 </html>
