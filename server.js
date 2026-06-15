@@ -17,6 +17,17 @@ const createTables = db.transaction(() => {
         )
         `
     ).run()
+
+    db.prepare(`
+        CREATE TABLE IF NOT EXISTS posts (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        createdDate TEXT,
+        title STRING NOT NULL,
+        body TEXT NOT NULL,
+        authorid INTEGER,
+        FOREIGN KEY (authorid) REFERENCES users (id)
+        )
+    `).run()
 })
 
 createTables()
@@ -101,6 +112,58 @@ app.post("/login", (req, res) => {
     })
 
     res.redirect("/")
+})
+
+function mustBeLoggedIn(req, res, next) {
+    if (req.user) {
+        return next()
+    }
+    return res.redirect("/")
+}
+
+app.get("/create-post", mustBeLoggedIn, (req, res) => {
+    res.render("create-post")
+})
+
+function sharedPostValidation(req) {
+    const errors = []
+
+    if (typeof req.body.title !== "string") req.body.title = ""
+    if (typeof req.body.body !== "string") req.body.body = ""
+
+    if (!req.body.title) errors.push("You must provide a title.")
+    if (!req.body.body) errors.push("You must provide a content.")
+
+    return errors
+}
+
+app.get("/post/:id", (req, res) => {
+    const statement = db.prepare("SELECT posts.*, users.username FROM posts INNER JOIN users ON posts.authorid = users.id WHERE posts.id = ?")
+    const post = statement.get(req.params.id)
+
+    if (!post) {
+        return res.redirect("/")
+    }
+
+    res.render("single-post", {post})
+})
+
+
+app.post("/create-post", mustBeLoggedIn, (req, res) => {
+    const errors = sharedPostValidation(req)
+
+    if (errors.length) {
+        return res.render("create-post", {errors})
+    }
+
+    //Save into database
+    const ourStatement = db.prepare("INSERT INTO posts (title, body, authorid, createdDate) VALUES (?, ?, ?, ?)")
+    const result = ourStatement.run(req.body.title, req.body.body, req.user.userid, new Date().toISOString())
+
+    const getPostStatement = db.prepare("SELECT * FROM posts WHERE ROWID = ?")
+    const realPost = getPostStatement.get(result.lastInsertRowid)
+
+    res.redirect(`/post/${realPost.id}`)
 })
 
 app.post("/register", (req, res) => {
