@@ -10,10 +10,10 @@
     <main>
       <fieldset>
         <legend>
-          <h3 class="heading">Create a New Post</h3>
+          <h3 class="heading">Edit Post</h3>
         </legend>
 
-        <form action="/create-post" method="POST">
+        <form action="/edit-post/<%= post.id %>" method="POST">
             <% errors.forEach(error => { %>
                 <p class="notice"><%= error %></p>
            <% }) %>
@@ -21,14 +21,13 @@
 
             <label for="title"><small>Title</small></label>
             <input type="text" value="<%= post.title %>" id="title" name="title">
-
             <br/>
 
             <label for="body"><small>Content</small></label>
-            <textarea name="body" id="body"></textarea>
+            <textarea name="body" id="body"><%= post.body %></textarea>
           </div>
           <br/>
-          <button type="submit" class="btn">Save Post</button>
+          <button type="submit" class="btn">Save Changes</button>
         </form>
       </fieldset>
     </main>

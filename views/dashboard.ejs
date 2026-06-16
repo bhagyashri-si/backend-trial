@@ -8,10 +8,17 @@
     <%- include('includes/header') %>
 
     <main>
-      <h2>Welcome to the dashboard</h2>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam voluptatibus officiis provident est deserunt, maiores voluptate error neque possimus soluta molestias et totam? Iste aperiam inventore vel dolores voluptatum? Sunt?
-
-      </p>
+      <% if (posts.length == 0) { %>
+      <h4> Hello <%= user.username %>, you do not have any posts.</h4>
+      <% } else { %>
+      <h4> Hello <%= user.username %>, here are your posts.</h4>
+      <% } %>
+      
+      <ul>
+        <% posts.forEach(post => { %>
+        <li><a href="/post/<%= post.id %>"><%= post.title %></a> on <%= new Date(post.createdDate).getDate() %>/<%= new Date(post.createdDate).getMonth() + 1 %>/<%= new Date(post.createdDate).getFullYear() %></li>
+       <% }) %>
+      </ul>
     </main>
 
     <%- include('includes/footer') %>
